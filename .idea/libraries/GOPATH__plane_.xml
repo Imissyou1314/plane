@@ -1,0 +1,37 @@
+<component name="libraryTable">
+  <library name="GOPATH &lt;plane&gt;">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../PaperPlane" />
+      <root url="file://$PROJECT_DIR$/../honnef.co" />
+      <root url="file://$PROJECT_DIR$/../runAPi" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../ReBot" />
+      <root url="file://$PROJECT_DIR$/../golang.org" />
+      <root url="file://$PROJECT_DIR$/../missDes" />
+      <root url="file://$PROJECT_DIR$/../gopkg.in" />
+      <root url="file://$PROJECT_DIR$/../reBoot" />
+      <root url="file://$PROJECT_DIR$/../google.golang.org" />
+      <root url="file://$PROJECT_DIR$/../launchpad.net" />
+      <root url="file://$PROJECT_DIR$/../missDemo" />
+      <root url="file://$PROJECT_DIR$/../sourcegraph.com" />
+    </CLASSES>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../PaperPlane" />
+      <root url="file://$PROJECT_DIR$/../honnef.co" />
+      <root url="file://$PROJECT_DIR$/../runAPi" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../ReBot" />
+      <root url="file://$PROJECT_DIR$/../golang.org" />
+      <root url="file://$PROJECT_DIR$/../missDes" />
+      <root url="file://$PROJECT_DIR$/../gopkg.in" />
+      <root url="file://$PROJECT_DIR$/../reBoot" />
+      <root url="file://$PROJECT_DIR$/../google.golang.org" />
+      <root url="file://$PROJECT_DIR$/../launchpad.net" />
+      <root url="file://$PROJECT_DIR$/../missDemo" />
+      <root url="file://$PROJECT_DIR$/../sourcegraph.com" />
+    </SOURCES>
+    <excluded>
+      <root url="file://$PROJECT_DIR$" />
+    </excluded>
+  </library>
+</component>
