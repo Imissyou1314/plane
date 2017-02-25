@@ -49,3 +49,4 @@ Temporary Items
 # remove the edite code tools
 .git
 .idea
+.vscode

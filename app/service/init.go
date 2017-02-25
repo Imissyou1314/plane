@@ -12,10 +12,13 @@ import (
 )
 
 var (
-	o           orm.Ormer
-	tablePrefix string       //表前缀
-	LogService  *logService  //日志服务
-	UserService *userService //用户服务
+	o               orm.Ormer
+	tablePrefix     string           //表前缀
+	LogService      *logService      //日志服务
+	UserService     *userService     //用户服务
+	PlaneService    *planeService    //飞机服务
+	PlaneLogService *planeLogService // 飞机日记服务
+	MessageService  *messageService  //消息服务
 )
 
 func Init() {
@@ -65,6 +68,9 @@ func Init() {
 func initService() {
 	UserService = &userService{}
 	LogService = &logService{}
+	PlaneLogService = &planeLogService{}
+	PlaneService = &planeService{}
+	MessageService = &messageService{}
 }
 
 // 获取表名
@@ -77,12 +83,14 @@ func debug(v ...interface{}) {
 	beego.Debug(v...)
 }
 
+// Version
 func DBVersion() string {
 	var lists []orm.ParamsList
 	o.Raw("select version()").ValuesList(&lists)
 	return lists[0][0].(string)
 }
 
+// ConcatenateError
 func concatenateError(err error, stderr string) error {
 	if len(stderr) == 0 {
 		return err
