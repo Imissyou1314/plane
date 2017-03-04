@@ -21,6 +21,14 @@ var (
 	MessageService  *messageService  //消息服务
 )
 
+type ServiceIF interface {
+	FindOneById(Id int)
+	FindAll()
+	DeteleById(Id int)
+	Add()
+	UpdataById(Id int)
+}
+
 func Init() {
 	dbHost := beego.AppConfig.String("db.host")
 	dbPort := beego.AppConfig.String("db.port")

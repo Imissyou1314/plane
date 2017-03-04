@@ -68,8 +68,8 @@ func (u *UserController) Put() {
 	if uid != "" {
 		var user models.User
 		json.Unmarshal(u.Ctx.Input.RequestBody, &user)
-		userId, err := strconv.Atoi(uid)
-		uu, err := service.UserService.UpdateUser(userId, &user)
+		// userId, err := strconv.Atoi(uid)
+		uu, err := service.UserService.UpdateUser(&user, "Id")
 		if err != nil {
 			u.Data["json"] = err
 		} else {
