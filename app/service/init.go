@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	o               orm.Ormer
+	o               orm.Ormer				 //数据库Orm
 	tablePrefix     string           //表前缀
 	LogService      *logService      //日志服务
 	UserService     *userService     //用户服务
@@ -21,6 +21,7 @@ var (
 	MessageService  *messageService  //消息服务
 )
 
+/** */
 type ServiceIF interface {
 	FindOneById(Id int)
 	FindAll()
