@@ -2,8 +2,7 @@ package controllers
 
 import (
   "plane/app/service"
-  "plane/app/models"
-
+  "strconv"
   "github.com/astaxie/beego"
 )
 
@@ -11,16 +10,26 @@ type PlaneController struct {
   beego.Controller
 }
 
-func (p *PlaneController) getPlaneById() {
-  PlaneID := p.GetString(":Id")
-  plane, _ := service.PlaneService.getPlaneById(PlaneID)
-  p.Data["json"] = plane
+func (p *PlaneController) GetPlaneById() {
+  Id := p.GetString(":Id")
+  PlaneID, err := strconv.Atoi(Id)
+  plane, _ := service.PlaneService.FindOneByID(PlaneID)
+  if err != nil {
+    p.Data["json"] = err.Error()
+  } else {
+    p.Data["json"] = plane
+  }
   p.ServeJSON()
 }
 
-func (p *PlaneController) getPlaneByUserId()  {
-    UserID := p.GetString(":userId")
-    plane, _ := service.PlaneService.getPlaneByUserId(UserID)
-    p.Data["json"] = plane
+func (p *PlaneController) GetPlaneByUserId()  {
+    userId := p.GetString(":userId")
+    UserID, err := strconv.Atoi(userId)
+    plane, _ := service.PlaneService.FindUserPlane(UserID)
+    if err != nil {
+      p.Data["json"] = err.Error()
+    } else {
+      p.Data["json"] = plane
+    }
     p.ServeJSON()
 }
