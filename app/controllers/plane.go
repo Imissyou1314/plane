@@ -6,6 +6,14 @@ import (
   "github.com/astaxie/beego"
 )
 
+// Operations about Plane
+// @Title getStaticBlock
+// @Description get all the staticblock by key
+// @Param   key     path    string  true        "The email for login"
+// @Success 200 {object} models.ZDTCustomer.Customer
+// @Failure 400 Invalid email supplied
+// @Failure 404 User not found
+// @router /staticblock/:key [get]
 type PlaneController struct {
   beego.Controller
 }
