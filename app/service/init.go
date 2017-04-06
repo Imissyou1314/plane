@@ -8,6 +8,7 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	log "github.com/Sirupsen/logrus"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -30,7 +31,10 @@ type ServiceIF interface {
 	UpdataById(Id int)
 }
 
-func Init() {
+func init() {
+
+	log.SetFormatter(&log.JSONFormatter{})
+
 	dbHost := beego.AppConfig.String("db.host")
 	dbPort := beego.AppConfig.String("db.port")
 	dbUser := beego.AppConfig.String("db.user")
@@ -48,8 +52,12 @@ func Init() {
 		dsn = dsn + "&loc=" + url.QueryEscape(timezone)
 	}
 
-	orm.RegisterDataBase("default", "mysql", dsn)
+	// orm.RegisterDriver("mysql", orm.mysql)
+	log.Info(dsn)
+	orm.RegisterDataBase(`default`, "mysql", "root:root@tcp(127.0.0.1:3306)/plane?charset=utf8")
+  orm.RegisterDataBase(`miss`, "mysql", dsn)
 	orm.DefaultTimeLoc = time.UTC
+
 
 	orm.RegisterModelWithPrefix(tablePrefix,
 		new(models.Log),
