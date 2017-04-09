@@ -6,18 +6,22 @@ import (
   "github.com/astaxie/beego"
 )
 
-// Operations about Plane
-// @Title getStaticBlock
-// @Description get all the staticblock by key
-// @Param   key     path    string  true        "The email for login"
-// @Success 200 {object} models.ZDTCustomer.Customer
-// @Failure 400 Invalid email supplied
-// @Failure 404 User not found
-// @router /staticblock/:key [get]
+// Plane API
 type PlaneController struct {
   beego.Controller
 }
 
+func (p *PlaneController) URLMapping() {
+  p.Mapping("GetPlaneById", p.GetPlaneById)
+  p.Mapping("GetPlaneByUserId", p.GetPlaneByUserId)
+}
+
+// @Title 根据飞机Id 获取飞机
+// @Description 根据飞机Id 获取指定飞机
+// @param Id query int true "PlaneID"
+// @Success 200 {object} models.Plane
+// @Failure 500 系统发生错误
+// @router /plane/:Id [get]
 func (p *PlaneController) GetPlaneById() {
   Id := p.GetString(":Id")
   PlaneID, err := strconv.Atoi(Id)
@@ -30,6 +34,12 @@ func (p *PlaneController) GetPlaneById() {
   p.ServeJSON()
 }
 
+// @Title 根据用户ID获取飞机
+// @Description 根据用户ID获取用户飞机
+// @param userId query int true "userId"
+// @Success 200 {object} models.Plane
+// @Failure 500 未知错误
+// @router /plane/:userId [get]
 func (p *PlaneController) GetPlaneByUserId()  {
     userId := p.GetString(":userId")
     UserID, err := strconv.Atoi(userId)

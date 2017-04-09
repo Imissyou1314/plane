@@ -12,14 +12,18 @@ type LogController struct {
 	beego.Controller
 }
 
+func (l *LogController) URLMapping() {
+	l.Mapping("GetLog", l.GetLog)
+	l.Mapping("GetAllLogs", l.GetAllLogs)
+}
+
 // @Title GetLogs
-// @Description get the logs by logsId
-// @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.log	true		"body for Log content"
-// @Success 200 {object} models.Log
-// @Failure 403 :id is not int
-// @router /:id [put]
-func (this *LogController) GetLogs() {
+// @Description get log By logId
+// @param id string true
+// @Success 200 {Array} []models.Log
+// @Failure 404 Log not found
+// @router /getlog/:id [get]
+func (this *LogController) GetLog() {
 	logId, err := this.GetInt("id", 0)
 	logs.Info(logId)
 	Log, err := service.LogService.FindById(logId)
@@ -27,6 +31,22 @@ func (this *LogController) GetLogs() {
 		this.Data["json"] = err
 	} else {
 		this.Data["json"] = Log
+	}
+	this.ServeJSON()
+}
+
+
+// @Title get All logs
+// @Description get All Logs
+// @Success 200 {array} models.Logs.LogsList
+// @Failure 500 Logs not fild
+// @router /getAllLogs [get]
+func (this *LogController) GetAllLogs() {
+	logs, err := service.LogService.GetAllLogs()
+	if err != nil {
+		this.Data["json"] = err
+	} else {
+		this.Data["json"] = logs
 	}
 	this.ServeJSON()
 }

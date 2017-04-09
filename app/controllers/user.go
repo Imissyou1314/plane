@@ -5,13 +5,19 @@ import (
 	"plane/app/models"
 	"plane/app/service"
 	"strconv"
-
 	"github.com/astaxie/beego"
 )
 
-// Operations about Users
+// Plane Users API
 type UserController struct {
 	beego.Controller
+}
+
+func (u *UserController) URLMapping()  {
+	u.Mapping("CreateUser", u.CreateUser)
+	u.Mapping("GetAll", u.GetAll)
+	u.Mapping("UpdateUser", u.UpdateUser)
+	u.Mapping("GetUserById", u.GetUserById)
 }
 
 // @Title CreateUser
@@ -19,30 +25,31 @@ type UserController struct {
 // @Param	body		body 	models.User	true		"body for user content"
 // @Success 200 {int} models.User.Id
 // @Failure 403 body is empty
-// @router / [post]
-func (u *UserController) Post() {
+// @router /user/createUser [post]
+func (u *UserController) CreateUser() {
 	users, _ := service.UserService.GetAllUser()
 	u.Data["json"] = map[string]interface{}{"users": users}
 	u.ServeJSON()
 }
 
-// @Title GetAll
+// @Title GetAll user
 // @Description get all Users
-// @Success 200 {object} models.User
-// @router / [get]
+// @Success 200 {object} []models.User
+// @Failure 500 系统错误
+// @router /user/getAll [get]
 func (u *UserController) GetAll() {
 	users, _ := service.UserService.GetAllUser()
 	u.Data["json"] = users
 	u.ServeJSON()
 }
 
-// @Title Get
+// @Title GetUser By user Id
 // @Description get user by uid
 // @Param	uid		path 	string	true		"The key for staticblock"
 // @Success 200 {object} models.User
 // @Failure 403 :uid is empty
-// @router /:uid [get]
-func (u *UserController) Get() {
+// @router /user/:uid [get]
+func (u *UserController) GetUserById() {
 	uid := u.GetString(":uid")
 	if uid != "" {
 		userId, err := strconv.Atoi(uid)
@@ -61,20 +68,17 @@ func (u *UserController) Get() {
 // @Param	uid		path 	string	true		"The uid you want to update"
 // @Param	body		body 	models.User	true		"body for user content"
 // @Success 200 {object} models.User
-// @Failure 403 :uid is not int
-// @router /:uid [put]
-func (u *UserController) Put() {
-	uid := u.GetString(":uid")
-	if uid != "" {
-		var user models.User
-		json.Unmarshal(u.Ctx.Input.RequestBody, &user)
-		// userId, err := strconv.Atoi(uid)
-		uu, err := service.UserService.UpdateUser(&user, "Id")
-		if err != nil {
-			u.Data["json"] = err
-		} else {
-			u.Data["json"] = uu
-		}
+// @Failure 403 :dont have this user
+// @router /user/update [put]
+func (u *UserController) UpdateUser() {
+	var user models.User
+	json.Unmarshal(u.Ctx.Input.RequestBody, &user)
+	// userId, err := strconv.Atoi(uid)
+	uu, err := service.UserService.UpdateUser(&user, "Id")
+	if err != nil {
+		u.Data["json"] = err
+	} else {
+		u.Data["json"] = uu
 	}
 	u.ServeJSON()
 }

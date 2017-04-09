@@ -3,6 +3,7 @@ package service
 import (
 	"errors"
 	"plane/app/models"
+	log "github.com/Sirupsen/logrus"
 )
 
 type logService struct {
@@ -43,6 +44,17 @@ func (this *logService) FindByUserName(userName string) (*models.Log, error) {
 	} else {
 		return nil, errors.New("传入的用户名为空")
 	}
+}
+
+func (this *logService) GetAllLogs() ([]models.Log, error) {
+	var logs []models.Log
+	num, err := o.Raw("select * from t_log").QueryRows(&logs)
+	if err != nil {
+		log.Error(err)
+	} else {
+		log.Info(num)
+	}
+	return logs, err
 }
 
 // func (this *logService) getLog(*models.Log log) (*models.Log, error) {

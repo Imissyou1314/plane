@@ -14,6 +14,7 @@ import (
 
 var (
 	o               orm.Ormer				 //数据库Orm
+	// log 						log.newLog()     // 日志管理器
 	tablePrefix     string           //表前缀
 	LogService      *logService      //日志服务
 	UserService     *userService     //用户服务
