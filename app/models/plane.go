@@ -8,8 +8,8 @@ import (
 type Plane struct {
 	Id            int       																		// PlaneID 飞机ID
 	PlaneName     string    `orm:"size(20)"` 										// PlaneName 飞机名
-	ImageURL      string    `orm:"size(20)"` 										// 飞机图标
-	UserID        int       																		// userid   用户ID
+	ImageUrl      string    `orm:"size(20)"` 										// 飞机图标
+	UserId        int       																		// userid   用户ID
 	PlayTime      time.Time `orm:"type(datatime)"`              //  飞行时间
 	BeginTime     time.Time `orm:"auto_now_add;type(datetime)"` //  开始时间
 	BeginAddress  string    `orm:"size(20)"`                    //  开始地点

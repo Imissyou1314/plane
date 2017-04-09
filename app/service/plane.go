@@ -19,7 +19,7 @@ func (this *planeService) FindOneByID(planeId int) (*models.Plane, error) {
 }
 
 func (this *planeService) FindUserPlane(userId int) (plane *models.Plane, err error) {
-	plane.UserID = userId
+	plane.UserId = userId
 	err = o.Read(plane, "UserId")
 	return
 }
