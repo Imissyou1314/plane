@@ -6,14 +6,14 @@ import (
 	"plane/app/models"
 	"time"
 
+	log "github.com/Sirupsen/logrus"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
-	log "github.com/Sirupsen/logrus"
 	_ "github.com/go-sql-driver/mysql"
 )
 
 var (
-	o               orm.Ormer				 //数据库Orm
+	o orm.Ormer //数据库Orm
 	// log 						log.newLog()     // 日志管理器
 	tablePrefix     string           //表前缀
 	LogService      *logService      //日志服务
@@ -23,7 +23,9 @@ var (
 	MessageService  *messageService  //消息服务
 )
 
-/** */
+/**
+ * Seriver Base interface
+ */
 type ServiceIF interface {
 	FindOneById(Id int)
 	FindAll()
@@ -56,9 +58,8 @@ func init() {
 	// orm.RegisterDriver("mysql", orm.mysql)
 	log.Info(dsn)
 	orm.RegisterDataBase(`default`, "mysql", "root:root@tcp(127.0.0.1:3306)/plane?charset=utf8")
-  orm.RegisterDataBase(`miss`, "mysql", dsn)
+	orm.RegisterDataBase(`miss`, "mysql", dsn)
 	orm.DefaultTimeLoc = time.UTC
-
 
 	orm.RegisterModelWithPrefix(tablePrefix,
 		new(models.Log),
@@ -67,6 +68,7 @@ func init() {
 		new(models.Plane),
 		new(models.PlaneLog),
 	)
+
 	//自动创建表（建后关闭)
 	orm.RunSyncdb("default", false, true)
 	orm.Debug = true
@@ -101,7 +103,7 @@ func debug(v ...interface{}) {
 	beego.Debug(v...)
 }
 
-// Version
+/** Version */
 func DBVersion() string {
 	var lists []orm.ParamsList
 	o.Raw("select version()").ValuesList(&lists)

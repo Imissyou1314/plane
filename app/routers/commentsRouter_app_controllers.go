@@ -23,14 +23,14 @@ func init() {
 	beego.GlobalControllerRouter["plane/app/controllers:PlaneController"] = append(beego.GlobalControllerRouter["plane/app/controllers:PlaneController"],
 		beego.ControllerComments{
 			Method: "GetPlaneById",
-			Router: `/plane/:Id`,
+			Router: `/plane`,
 			AllowHTTPMethods: []string{"get"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["plane/app/controllers:PlaneController"] = append(beego.GlobalControllerRouter["plane/app/controllers:PlaneController"],
 		beego.ControllerComments{
 			Method: "GetPlaneByUserId",
-			Router: `/plane/:userId`,
+			Router: `/user/plane`,
 			AllowHTTPMethods: []string{"get"},
 			Params: nil})
 
