@@ -23,3 +23,8 @@ func (this *planeService) FindUserPlane(userId int) (plane *models.Plane, err er
 	err = o.Read(plane, "UserId")
 	return
 }
+
+func (this *planeService) GetAll() (planes []models.Plane, err error) {
+	err = o.Read(planes)
+	return
+}

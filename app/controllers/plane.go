@@ -52,3 +52,13 @@ func (p *PlaneController) GetPlaneByUserId() {
 	}
 	p.ServeJSON()
 }
+
+func (p *PlaneController) GetAllPlane() {
+	planes, err := service.PlaneService.GetAll()
+	if err != nil {
+		p.Data["json"] = err.Error()
+	} else {
+		p.Data["json"] = planes
+	}
+	p.ServeJSON()
+}

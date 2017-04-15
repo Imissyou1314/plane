@@ -35,7 +35,6 @@ func (this *LogController) GetLog() {
 	this.ServeJSON()
 }
 
-
 // @Title get All logs
 // @Description get All Logs
 // @Success 200 {array} models.Logs.LogsList

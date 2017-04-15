@@ -1,9 +1,19 @@
 package controllers
 
 import (
-  "github.com/astaxie/beego"
+	"time"
+
+	"github.com/astaxie/beego"
 )
 
 type BaseController struct {
-  beego.Controller
+	beego.Controller
 }
+
+func (this *BaseController) Prepare() {
+	this.Data["StartTime"] = time.Now()
+}
+
+// func (this *BaseController) Finish() {
+// 	this.Data
+// }
