@@ -76,7 +76,6 @@ func (u *UserController) GetUserById() {
 func (u *UserController) UpdateUser() {
 	var user models.User
 	json.Unmarshal(u.Ctx.Input.RequestBody, &user)
-	// userId, err := strconv.Atoi(uid)
 	uu, err := service.UserService.UpdateUser(&user, "Id")
 	if err != nil {
 		u.Data["json"] = err
