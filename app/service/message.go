@@ -29,6 +29,12 @@ func (this *messageService) ReadMessage(messageId int) error {
 func (this *messageService) FindOneById(messageId int) (*models.Message, error) {
 	message := &models.Message{}
 	message.Id = messageId
-	err := o.Read(message);
+	err := o.Read(message)
+	return message, err
+}
+
+func (this *messageService) AddMessage(message *models.Message) (*models.Message, error) {
+	messageID, err := o.Insert(message)
+	message, _ = this.FindOneById(int(messageID))
 	return message, err
 }
