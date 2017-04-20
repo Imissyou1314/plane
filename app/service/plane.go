@@ -28,3 +28,14 @@ func (this *planeService) GetAll() (planes []models.Plane, err error) {
 	err = o.Read(planes)
 	return
 }
+
+func (this *planeService) AddPlane(plane *models.Plane) (result *models.Plane, err error) {
+	id, err := o.Insert(plane)
+	if err != nil {
+		result, err = this.FindOneByID(int(id))
+		return
+	} else {
+		result = nil
+		return nil, err
+	}
+}

@@ -5,6 +5,7 @@ import (
 	"plane/app/models"
 	"plane/app/service"
 	"strconv"
+
 	"github.com/astaxie/beego"
 )
 
@@ -13,7 +14,7 @@ type UserController struct {
 	beego.Controller
 }
 
-func (u *UserController) URLMapping()  {
+func (u *UserController) URLMapping() {
 	u.Mapping("CreateUser", u.CreateUser)
 	u.Mapping("GetAll", u.GetAll)
 	u.Mapping("UpdateUser", u.UpdateUser)
@@ -25,10 +26,12 @@ func (u *UserController) URLMapping()  {
 // @Param	body		body 	models.User	true		"body for user content"
 // @Success 200 {int} models.User.Id
 // @Failure 403 body is empty
-// @router /user/createUser [post]
+// @router /createUser [post]
 func (u *UserController) CreateUser() {
-	users, _ := service.UserService.GetAllUser()
-	u.Data["json"] = map[string]interface{}{"users": users}
+	var user models.User
+	json.Unmarshal(u.Ctx.Input.RequestBody, &user)
+	result, _ := service.UserService.AddUser(&user)
+	u.Data["json"] = result
 	u.ServeJSON()
 }
 

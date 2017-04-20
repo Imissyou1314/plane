@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"encoding/json"
+	"plane/app/models"
 	"plane/app/service"
 	"strconv"
 
@@ -17,14 +19,28 @@ func (p *PlaneController) URLMapping() {
 	p.Mapping("GetPlaneByUserId", p.GetPlaneByUserId)
 }
 
+// @Title CreatePlane 创建飞机
+// @Description 添加飞机
+// @param Plane json
+// @Success 200 {object} models.Plane
+// @Failure 500 系统发生错误
+// @router /createPlane [post]
+func (p *PlaneController) CreatePlane() {
+	var plane models.Plane
+	json.Unmarshal(p.Ctx.Input.RequestBody, &plane)
+	result, _ := service.PlaneService.AddPlane(&plane)
+	p.Data["json"] = result
+	p.ServeJSON()
+}
+
 // @Title 根据飞机Id 获取飞机
 // @Description 根据飞机Id 获取指定飞机
 // @param Id query int true "PlaneID"
 // @Success 200 {object} models.Plane
 // @Failure 500 系统发生错误
-// @router /plane [get]
+// @router / [get]
 func (p *PlaneController) GetPlaneById() {
-	Id := p.GetString(":Id")
+	Id := p.GetString("Id")
 	PlaneID, err := strconv.Atoi(Id)
 	plane, _ := service.PlaneService.FindOneByID(PlaneID)
 	if err != nil {
@@ -40,10 +56,10 @@ func (p *PlaneController) GetPlaneById() {
 // @param userId query int true "userId"
 // @Success 200 {object} models.Plane
 // @Failure 500 未知错误
-// @router /user/plane [get]
+// @router /user/ [get]
 func (p *PlaneController) GetPlaneByUserId() {
-	userId := p.GetString(":userId")
-	UserID, err := strconv.Atoi(userId)
+	userID := p.GetString("userId")
+	UserID, err := strconv.Atoi(userID)
 	plane, _ := service.PlaneService.FindUserPlane(UserID)
 	if err != nil {
 		p.Data["json"] = err.Error()

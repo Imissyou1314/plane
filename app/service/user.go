@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"plane/app/libs"
 	"plane/app/models"
-	
+
 	"github.com/astaxie/beego/utils"
 )
 
@@ -48,17 +48,13 @@ func (this *userService) GetTotal() (int64, error) {
 }
 
 // 添加新用户
-func (this *userService) AddUser(userName, email, password string, sex int) (*models.User, error) {
-	if exists, _ := this.GetUserByName(userName); exists.Id > 0 {
+func (this *userService) AddUser(user *models.User) (*models.User, error) {
+	if exists, _ := this.GetUserByName(user.UserName); exists.Id > 0 {
 		return nil, errors.New("用户名已经存在")
 	}
 
-	user := &models.User{}
-	user.UserName = userName
-	user.Sex = sex
-	user.Email = email
 	user.Salt = string(utils.RandomCreateBytes(10))
-	user.Password = libs.Md5([]byte(password + user.Salt))
+	user.Password = libs.Md5([]byte(user.Password + user.Salt))
 	_, err := o.Insert(user)
 	return user, err
 }

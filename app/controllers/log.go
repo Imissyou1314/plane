@@ -22,7 +22,7 @@ func (l *LogController) URLMapping() {
 // @param id string true
 // @Success 200 {Array} []models.Log
 // @Failure 404 Log not found
-// @router /getlog/:id [get]
+// @router /getLog/:id [get]
 func (this *LogController) GetLog() {
 	logId, err := this.GetInt("id", 0)
 	logs.Info(logId)
