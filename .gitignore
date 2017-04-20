@@ -52,3 +52,5 @@ Temporary Items
 .vscode
 *.exe
 plane.exe
+*.tmp
+*.exe~
