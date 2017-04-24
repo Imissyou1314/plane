@@ -30,6 +30,11 @@ func init() {
 				&controllers.PlaneController{},
 			),
 		),
+		beego.NSNamespace("/message",
+			beego.NSInclude(
+				&controllers.MessageController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
