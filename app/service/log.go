@@ -3,6 +3,7 @@ package service
 import (
 	"errors"
 	"plane/app/models"
+
 	log "github.com/Sirupsen/logrus"
 )
 
@@ -13,7 +14,7 @@ func (this *logService) table() string {
 	return tableName("log")
 }
 
-func (this *logService) FindById(logId int) (*models.Log, error) {
+func (this *logService) FindById(logId int64) (*models.Log, error) {
 	if logId != 0 {
 		log := &models.Log{}
 		log.Id = logId
@@ -24,7 +25,7 @@ func (this *logService) FindById(logId int) (*models.Log, error) {
 	}
 }
 
-func (this *logService) FindByUserId(userId int) (*models.Log, error) {
+func (this *logService) FindByUserId(userId int64) (*models.Log, error) {
 	if userId != 0 {
 		log := &models.Log{}
 		log.UserId = userId
@@ -36,7 +37,7 @@ func (this *logService) FindByUserId(userId int) (*models.Log, error) {
 }
 
 func (this *logService) FindByUserName(userName string) (*models.Log, error) {
-	if len(userName) != 0{
+	if len(userName) != 0 {
 		log := &models.Log{}
 		log.UserName = userName
 		err := o.Read(log)

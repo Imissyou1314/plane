@@ -27,11 +27,11 @@ var (
  * Seriver Base interface
  */
 type ServiceIF interface {
-	FindOneById(Id int)
+	FindOneById(Id int64)
 	FindAll()
-	DeteleById(Id int)
+	DeteleById(Id int64)
 	Add()
-	UpdataById(Id int)
+	UpdataById(Id int64)
 }
 
 func init() {

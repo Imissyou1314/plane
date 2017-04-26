@@ -38,9 +38,9 @@ func (m *MessageController) CreateMessage() {
 // @Param	Id		body
 // @Success 200 {object} models.User
 // @Failure 403 :dont have this user
-// @router /read [post]
+// @router /read/:messageId [post]
 func (m *MessageController) ReadMessage() {
-	messageID, _ := m.GetInt("messageId", 0)
+	messageID, _ := m.GetInt64("messageId", 0)
 	err := service.MessageService.ReadMessage(messageID)
 	m.SetResult("read the message Success", err)
 }
@@ -52,7 +52,7 @@ func (m *MessageController) ReadMessage() {
 // @Failure 403 :dont have this user
 // @router /getUserMessage [post]
 func (m *MessageController) UserUNReadMessage() {
-	userId, err := m.GetInt("userId", 0)
+	userId, err := m.GetInt64("userId", 0)
 	if m.CheckErr(err) {
 		messages, err := service.MessageService.GetUserUNReadMessage(userId)
 		m.SetResult(messages, err)
@@ -64,9 +64,9 @@ func (m *MessageController) UserUNReadMessage() {
 // @Param	Id		body
 // @Success 200 {object} models.User
 // @Failure 403 :dont have this user
-// @router / [get]
+// @router /:messageId [get]
 func (m *MessageController) GetMessageById() {
-	messageId, mErr := m.GetInt("messageId", 0)
+	messageId, mErr := m.GetInt64(":messageId", 0)
 	libs.Log(messageId)
 	if m.CheckErr(mErr) {
 		message, err := service.MessageService.FindOneById(messageId)
@@ -80,9 +80,9 @@ func (m *MessageController) GetMessageById() {
 // @Param	Id		body
 // @Success 200 {object} models.User
 // @Failure 403 :dont have this user
-// @router /plane [get]
+// @router /plane/:planeId [get]
 func (m *MessageController) GetMessageByPlaneId() {
-	planeId, err := m.GetInt("planeId", 0)
+	planeId, err := m.GetInt64(":planeId", 0)
 	if m.CheckErr(err) {
 		messages, err := service.MessageService.FindMessageByPlaneId(planeId)
 		m.SetResult(messages, err)

@@ -4,12 +4,19 @@ import (
 	"plane/app/models"
 	"time"
 
-	log "github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus"
 	"github.com/astaxie/beego"
 )
 
 type BaseController struct {
 	beego.Controller
+}
+
+var log = logrus.New()
+
+func init() {
+	log.Formatter = new(logrus.JSONFormatter)
+	log.Formatter = new(logrus.TextFormatter)
 }
 
 func (this *BaseController) Prepare() {

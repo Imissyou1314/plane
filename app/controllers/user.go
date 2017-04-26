@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"plane/app/models"
 	"plane/app/service"
-	"strconv"
 
 	"github.com/astaxie/beego"
 )
@@ -53,10 +52,9 @@ func (u *UserController) GetAll() {
 // @Failure 403 :uid is empty
 // @router /user/:uid [get]
 func (u *UserController) GetUserById() {
-	uid := u.GetString(":uid")
-	if uid != "" {
-		userId, err := strconv.Atoi(uid)
-		user, err := service.UserService.GetUser(userId)
+	uid, _ := u.GetInt64(":uid")
+	if uid != 0 {
+		user, err := service.UserService.GetUser(uid)
 		if err != nil {
 			u.Data["json"] = err.Error()
 		} else {

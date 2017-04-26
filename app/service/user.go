@@ -27,7 +27,7 @@ func (this *userService) GetAllUser() ([]models.User, error) {
 	}
 }
 
-func (this *userService) GetUser(userId int) (*models.User, error) {
+func (this *userService) GetUser(userId int64) (*models.User, error) {
 	user := &models.User{}
 	user.Id = userId
 	err := o.Read(user)
@@ -65,12 +65,12 @@ func (this *userService) UpdateUser(user *models.User, fileds ...string) (*model
 	if err != nil {
 		return nil, errors.New("更新失败")
 	} else {
-		return this.GetUser(int(userId))
+		return this.GetUser(userId)
 	}
 }
 
 // 修改登录密码
-func (this *userService) ModifyPassword(userId int, password string) error {
+func (this *userService) ModifyPassword(userId int64, password string) error {
 	user, err := this.GetUser(userId)
 	if err != nil {
 		return err
@@ -83,7 +83,7 @@ func (this *userService) ModifyPassword(userId int, password string) error {
 }
 
 // 根据ID删除用户
-func (this *userService) DeteleUser(userId int) error {
+func (this *userService) DeteleUser(userId int64) error {
 	if userId == 1 {
 		return errors.New("不允许删除用户ID为1的用户")
 	}
@@ -121,7 +121,7 @@ func (this *userService) Login(userName, password string) (*models.User, error) 
 	return user, err
 }
 
-func (this *userService) Logout(userId int) (*models.User, error) {
+func (this *userService) Logout(userId int64) (*models.User, error) {
 	user := &models.User{
 		Id:     userId,
 		Status: 0,
