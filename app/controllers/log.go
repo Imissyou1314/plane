@@ -23,16 +23,16 @@ func (l *LogController) URLMapping() {
 // @Success 200 {Array} []models.Log
 // @Failure 404 Log not found
 // @router /GetLog/:id [get]
-func (this *LogController) GetLog() {
-	logId, err := this.GetInt64("id", 0)
-	logs.Info(logId)
-	Log, err := service.LogService.FindById(logId)
+func (l *LogController) GetLog() {
+	logID, err := l.GetInt64("id", 0)
+	logs.Info(logID)
+	Log, err := service.LogService.FindByID(logID)
 	if err != nil {
-		this.Data["json"] = err
+		l.Data["json"] = err
 	} else {
-		this.Data["json"] = Log
+		l.Data["json"] = Log
 	}
-	this.ServeJSON()
+	l.ServeJSON()
 }
 
 // @Title get All logs
@@ -40,12 +40,12 @@ func (this *LogController) GetLog() {
 // @Success 200 {array} models.Logs.LogsList
 // @Failure 500 Logs not fild
 // @router /getAllLogs [get]
-func (this *LogController) GetAllLogs() {
+func (l *LogController) GetAllLogs() {
 	logs, err := service.LogService.GetAllLogs()
 	if err != nil {
-		this.Data["json"] = err
+		l.Data["json"] = err
 	} else {
-		this.Data["json"] = logs
+		l.Data["json"] = logs
 	}
-	this.ServeJSON()
+	l.ServeJSON()
 }

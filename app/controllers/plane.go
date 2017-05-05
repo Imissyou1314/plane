@@ -12,8 +12,8 @@ type PlaneController struct {
 }
 
 func (p *PlaneController) URLMapping() {
-	p.Mapping("GetPlaneById", p.GetPlaneById)
-	p.Mapping("GetPlaneByUserId", p.GetPlaneByUserId)
+	p.Mapping("GetPlaneByID", p.GetPlaneByID)
+	p.Mapping("GetPlaneByUserID", p.GetPlaneByUserID)
 	p.Mapping("CreatePlane", p.CreatePlane)
 }
 
@@ -36,7 +36,7 @@ func (p *PlaneController) CreatePlane() {
 // @Success 200 {object} models.Plane
 // @Failure 500 系统发生错误
 // @router /:planeId [get]
-func (p *PlaneController) GetPlaneById() {
+func (p *PlaneController) GetPlaneByID() {
 	planeID, _ := p.GetInt64(":planeId")
 	plane, err := service.PlaneService.FindOneByID(planeID)
 	p.SetResult(plane, err)
@@ -48,7 +48,7 @@ func (p *PlaneController) GetPlaneById() {
 // @Success 200 {object} models.Plane
 // @Failure 500 未知错误
 // @router /user/:userId [get]
-func (p *PlaneController) GetPlaneByUserId() {
+func (p *PlaneController) GetPlaneByUserID() {
 	userID, _ := p.GetInt64(":userId")
 	plane, err := service.PlaneService.FindUserPlane(userID)
 	p.SetResult(plane, err)

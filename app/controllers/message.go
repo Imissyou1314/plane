@@ -15,8 +15,8 @@ func (m *MessageController) URLMapping() {
 	m.Mapping("CreateMessage", m.CreateMessage)
 	m.Mapping("UserMessage", m.UserUNReadMessage)
 	m.Mapping("ReadMessage", m.ReadMessage)
-	m.Mapping("GetMessageById", m.GetMessageById)
-	m.Mapping("GetMessageByPlaneId", m.GetMessageByPlaneId)
+	m.Mapping("GetMessageByID", m.GetMessageByID)
+	m.Mapping("GetMessageByPlaneID", m.GetMessageByPlaneID)
 }
 
 // @Title AddMessage
@@ -52,9 +52,9 @@ func (m *MessageController) ReadMessage() {
 // @Failure 403 :dont have this user
 // @router /getUserMessage [post]
 func (m *MessageController) UserUNReadMessage() {
-	userId, err := m.GetInt64("userId", 0)
+	userID, err := m.GetInt64("userId", 0)
 	if m.CheckErr(err) {
-		messages, err := service.MessageService.GetUserUNReadMessage(userId)
+		messages, err := service.MessageService.GetUserUNReadMessage(userID)
 		m.SetResult(messages, err)
 	}
 }
@@ -65,11 +65,11 @@ func (m *MessageController) UserUNReadMessage() {
 // @Success 200 {object} models.User
 // @Failure 403 :dont have this user
 // @router /:messageId [get]
-func (m *MessageController) GetMessageById() {
-	messageId, mErr := m.GetInt64(":messageId", 0)
-	libs.Log(messageId)
+func (m *MessageController) GetMessageByID() {
+	messageID, mErr := m.GetInt64(":messageId", 0)
+	libs.Log(messageID)
 	if m.CheckErr(mErr) {
-		message, err := service.MessageService.FindOneById(messageId)
+		message, err := service.MessageService.FindOneByID(messageID)
 		libs.Log(message)
 		m.SetResult(message, err)
 	}
@@ -81,10 +81,10 @@ func (m *MessageController) GetMessageById() {
 // @Success 200 {object} models.User
 // @Failure 403 :dont have this user
 // @router /plane/:planeId [get]
-func (m *MessageController) GetMessageByPlaneId() {
-	planeId, err := m.GetInt64(":planeId", 0)
+func (m *MessageController) GetMessageByPlaneID() {
+	planeID, err := m.GetInt64(":planeId", 0)
 	if m.CheckErr(err) {
-		messages, err := service.MessageService.FindMessageByPlaneId(planeId)
+		messages, err := service.MessageService.FindMessageByPlaneID(planeID)
 		m.SetResult(messages, err)
 	}
 }

@@ -24,14 +24,14 @@ var (
 )
 
 /**
- * Seriver Base interface
+ * ServiceIF Base interface
  */
 type ServiceIF interface {
-	FindOneById(Id int64)
+	FindOneById(ID int64)
 	FindAll()
-	DeteleById(Id int64)
+	DeteleById(ID int64)
 	Add()
-	UpdataById(Id int64)
+	UpdataById(ID int64)
 }
 
 func init() {
@@ -103,7 +103,7 @@ func debug(v ...interface{}) {
 	beego.Debug(v...)
 }
 
-/** Version */
+/** DBVersion  */
 func DBVersion() string {
 	var lists []orm.ParamsList
 	o.Raw("select version()").ValuesList(&lists)
@@ -122,9 +122,8 @@ func concatenateError(err error, stderr string) error {
 func checkErr(err error) bool {
 	if nil == err {
 		return true
-	} else {
-		return false
 	}
+	return false
 }
 
 // 生成异常

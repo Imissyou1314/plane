@@ -10,44 +10,41 @@ import (
 type logService struct {
 }
 
-func (this *logService) table() string {
+func (l *logService) table() string {
 	return tableName("log")
 }
 
-func (this *logService) FindById(logId int64) (*models.Log, error) {
-	if logId != 0 {
+func (l *logService) FindByID(logID int64) (*models.Log, error) {
+	if logID != 0 {
 		log := &models.Log{}
-		log.Id = logId
+		log.Id = logID
 		err := o.Read(log)
 		return log, err
-	} else {
-		return nil, errors.New("传入ID不能为空")
 	}
+	return nil, errors.New("传入ID不能为空")
 }
 
-func (this *logService) FindByUserId(userId int64) (*models.Log, error) {
-	if userId != 0 {
+func (l *logService) FindByUserID(userID int64) (*models.Log, error) {
+	if userID != 0 {
 		log := &models.Log{}
-		log.UserId = userId
+		log.UserId = userID
 		err := o.Read(log)
 		return log, err
-	} else {
-		return nil, errors.New("传入用户ID不能为空")
 	}
+	return nil, errors.New("传入用户ID不能为空")
 }
 
-func (this *logService) FindByUserName(userName string) (*models.Log, error) {
+func (l *logService) FindByUserName(userName string) (*models.Log, error) {
 	if len(userName) != 0 {
 		log := &models.Log{}
 		log.UserName = userName
 		err := o.Read(log)
 		return log, err
-	} else {
-		return nil, errors.New("传入的用户名为空")
 	}
+	return nil, errors.New("传入的用户名为空")
 }
 
-func (this *logService) GetAllLogs() ([]models.Log, error) {
+func (l *logService) GetAllLogs() ([]models.Log, error) {
 	var logs []models.Log
 	num, err := o.Raw("select * from t_log").QueryRows(&logs)
 	if err != nil {

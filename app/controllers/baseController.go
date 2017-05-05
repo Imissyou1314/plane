@@ -19,24 +19,23 @@ func init() {
 	log.Formatter = new(logrus.TextFormatter)
 }
 
-func (this *BaseController) Prepare() {
-	this.Data["StartTime"] = time.Now()
-	log.Info(this.Ctx.Input)
+func (base *BaseController) Prepare() {
+	base.Data["StartTime"] = time.Now()
+	log.Info(base.Ctx.Input)
 }
 
-func (this *BaseController) CheckErr(err error) bool {
+func (base *BaseController) CheckErr(err error) bool {
 	if err != nil {
-		this.Data["json"] = models.SetWithErr(err)
-		this.ServeJSON()
+		base.Data["json"] = models.SetWithErr(err)
+		base.ServeJSON()
 		return false
-	} else {
-		return true
 	}
+	return true
 }
 
 // Set result Data
-func (this *BaseController) SetResult(data interface{}, err error) {
+func (base *BaseController) SetResult(data interface{}, err error) {
 	result := models.SetResultModel(data, err)
-	this.Data["json"] = result
-	this.ServeJSON()
+	base.Data["json"] = result
+	base.ServeJSON()
 }

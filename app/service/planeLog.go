@@ -3,6 +3,6 @@ package service
 type planeLogService struct {
 }
 
-func (this *planeLogService) table() string {
+func (l *planeLogService) table() string {
 	return tableName("planeLog")
 }
