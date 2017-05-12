@@ -16,13 +16,10 @@ func (u *userService) table() string {
 	return tableName("user")
 }
 
-func (u *userService) GetAllUser() ([]models.User, error) {
-	var users []models.User
-	o.Read(users)
-	if len(users) != 0 {
-		return users, nil
-	}
-	return nil, newError("查询没有结果")
+func (u *userService) GetAllUser() ([]*models.User, error) {
+	var users []*models.User
+	_, err := o.QueryTable("t_user").All(&users)
+	return users, err
 }
 
 func (u *userService) GetUser(userID int64) (*models.User, error) {

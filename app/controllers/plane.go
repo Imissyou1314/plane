@@ -6,7 +6,7 @@ import (
 	"plane/app/service"
 )
 
-// Plane API
+// Plane API get extend the BaseController
 type PlaneController struct {
 	BaseController
 }
@@ -22,7 +22,7 @@ func (p *PlaneController) URLMapping() {
 // @param Plane json
 // @Success 200 {object} models.Plane
 // @Failure 500 系统发生错误
-// @router /createPlane [post]
+// @router /create [post]
 func (p *PlaneController) CreatePlane() {
 	var plane models.Plane
 	json.Unmarshal(p.Ctx.Input.RequestBody, &plane)
@@ -59,7 +59,7 @@ func (p *PlaneController) GetPlaneByUserID() {
 // @param userId query int true "userId"
 // @Success 200 {object} models.Plane
 // @Failure 500 未知错误
-// @router /all [get]
+// @router /getAll [get]
 func (p *PlaneController) GetAllPlane() {
 	planes, err := service.PlaneService.GetAll()
 	p.SetResult(planes, err)

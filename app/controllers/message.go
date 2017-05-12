@@ -38,7 +38,7 @@ func (m *MessageController) CreateMessage() {
 // @Param	Id		body
 // @Success 200 {object} models.User
 // @Failure 403 :dont have this user
-// @router /read/:messageId [post]
+// @router /read/:messageId [get]
 func (m *MessageController) ReadMessage() {
 	messageID, _ := m.GetInt64("messageId", 0)
 	err := service.MessageService.ReadMessage(messageID)

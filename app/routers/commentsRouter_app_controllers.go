@@ -31,7 +31,7 @@ func init() {
 		beego.ControllerComments{
 			Method: "ReadMessage",
 			Router: `/read/:messageId`,
-			AllowHTTPMethods: []string{"post"},
+			AllowHTTPMethods: []string{"get"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["plane/app/controllers:MessageController"] = append(beego.GlobalControllerRouter["plane/app/controllers:MessageController"],
@@ -43,14 +43,14 @@ func init() {
 
 	beego.GlobalControllerRouter["plane/app/controllers:MessageController"] = append(beego.GlobalControllerRouter["plane/app/controllers:MessageController"],
 		beego.ControllerComments{
-			Method: "GetMessageById",
+			Method: "GetMessageByID",
 			Router: `/:messageId`,
 			AllowHTTPMethods: []string{"get"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["plane/app/controllers:MessageController"] = append(beego.GlobalControllerRouter["plane/app/controllers:MessageController"],
 		beego.ControllerComments{
-			Method: "GetMessageByPlaneId",
+			Method: "GetMessageByPlaneID",
 			Router: `/plane/:planeId`,
 			AllowHTTPMethods: []string{"get"},
 			Params: nil})
@@ -58,20 +58,20 @@ func init() {
 	beego.GlobalControllerRouter["plane/app/controllers:PlaneController"] = append(beego.GlobalControllerRouter["plane/app/controllers:PlaneController"],
 		beego.ControllerComments{
 			Method: "CreatePlane",
-			Router: `/createPlane`,
+			Router: `/create`,
 			AllowHTTPMethods: []string{"post"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["plane/app/controllers:PlaneController"] = append(beego.GlobalControllerRouter["plane/app/controllers:PlaneController"],
 		beego.ControllerComments{
-			Method: "GetPlaneById",
+			Method: "GetPlaneByID",
 			Router: `/:planeId`,
 			AllowHTTPMethods: []string{"get"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["plane/app/controllers:PlaneController"] = append(beego.GlobalControllerRouter["plane/app/controllers:PlaneController"],
 		beego.ControllerComments{
-			Method: "GetPlaneByUserId",
+			Method: "GetPlaneByUserID",
 			Router: `/user/:userId`,
 			AllowHTTPMethods: []string{"get"},
 			Params: nil})
@@ -79,35 +79,42 @@ func init() {
 	beego.GlobalControllerRouter["plane/app/controllers:PlaneController"] = append(beego.GlobalControllerRouter["plane/app/controllers:PlaneController"],
 		beego.ControllerComments{
 			Method: "GetAllPlane",
-			Router: `/all`,
+			Router: `/getAll`,
 			AllowHTTPMethods: []string{"get"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["plane/app/controllers:UserController"] = append(beego.GlobalControllerRouter["plane/app/controllers:UserController"],
 		beego.ControllerComments{
 			Method: "CreateUser",
-			Router: `/createUser`,
+			Router: `/create`,
 			AllowHTTPMethods: []string{"post"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["plane/app/controllers:UserController"] = append(beego.GlobalControllerRouter["plane/app/controllers:UserController"],
 		beego.ControllerComments{
 			Method: "GetAll",
-			Router: `/user/getAll`,
+			Router: `/getAll`,
 			AllowHTTPMethods: []string{"get"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["plane/app/controllers:UserController"] = append(beego.GlobalControllerRouter["plane/app/controllers:UserController"],
 		beego.ControllerComments{
-			Method: "GetUserById",
-			Router: `/user/:uid`,
+			Method: "GetUserByID",
+			Router: `/:uid`,
 			AllowHTTPMethods: []string{"get"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["plane/app/controllers:UserController"] = append(beego.GlobalControllerRouter["plane/app/controllers:UserController"],
 		beego.ControllerComments{
 			Method: "UpdateUser",
-			Router: `/user/update`,
+			Router: `/update`,
+			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["plane/app/controllers:UserController"] = append(beego.GlobalControllerRouter["plane/app/controllers:UserController"],
+		beego.ControllerComments{
+			Method: "DeleteUser",
+			Router: `/delete`,
 			AllowHTTPMethods: []string{"put"},
 			Params: nil})
 
