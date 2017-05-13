@@ -1,0 +1,619 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Plane API",
+        "description": "Plane Service API",
+        "version": "1.0.0",
+        "termsOfService": "http://127.0.0.1/miss/",
+        "contact": {
+            "email": "1255418233@qq.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "basePath": "/miss",
+    "paths": {
+        "/log/GetLog/{id}": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "get log By logId",
+                "operationId": "LogController.GetLogs",
+                "responses": {
+                    "200": {
+                        "description": "{Array} []models.Log"
+                    },
+                    "404": {
+                        "description": "Log not found"
+                    }
+                }
+            }
+        },
+        "/log/getAllLogs": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "get All Logs",
+                "operationId": "LogController.get All logs",
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Log"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Logs not fild"
+                    }
+                }
+            }
+        },
+        "/message/add": {
+            "post": {
+                "tags": [
+                    "message"
+                ],
+                "description": "Add the Message",
+                "operationId": "MessageController.CreateMessage",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "json",
+                        "description": "body for user content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Message"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": ":dont have this user"
+                    }
+                }
+            }
+        },
+        "/message/getUserMessage": {
+            "post": {
+                "tags": [
+                    "message"
+                ],
+                "description": "Add the Message",
+                "operationId": "MessageController.UserUNReadMessage",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "Id",
+                        "description": "true",
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": ":dont have this user"
+                    }
+                }
+            }
+        },
+        "/message/plane/{planeId}": {
+            "get": {
+                "tags": [
+                    "message"
+                ],
+                "description": "get the Message by messageId",
+                "operationId": "MessageController.GetMessageByPlaneId",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "Id",
+                        "description": "for message planeId",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": ":dont have this user"
+                    }
+                }
+            }
+        },
+        "/message/read/{messageId}": {
+            "get": {
+                "tags": [
+                    "message"
+                ],
+                "description": "read the Message",
+                "operationId": "MessageController.ReadMessage",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "messageId",
+                        "description": "true",
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": ":dont have this user"
+                    }
+                }
+            }
+        },
+        "/message/{messageId}": {
+            "get": {
+                "tags": [
+                    "message"
+                ],
+                "description": "get the Message by messageId",
+                "operationId": "MessageController.GetMessageById",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "Id",
+                        "description": "true",
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": ":dont have this user"
+                    }
+                }
+            }
+        },
+        "/plane/create": {
+            "post": {
+                "tags": [
+                    "plane"
+                ],
+                "description": "添加飞机",
+                "operationId": "PlaneController.CreatePlane 创建飞机",
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.Plane"
+                        }
+                    },
+                    "500": {
+                        "description": "系统发生错误"
+                    }
+                }
+            }
+        },
+        "/plane/getAll": {
+            "get": {
+                "tags": [
+                    "plane"
+                ],
+                "description": "获取所有的飞机",
+                "operationId": "PlaneController.获取所有的飞机",
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.Plane"
+                        }
+                    },
+                    "500": {
+                        "description": "未知错误"
+                    }
+                }
+            }
+        },
+        "/plane/user/{userId}": {
+            "get": {
+                "tags": [
+                    "plane"
+                ],
+                "description": "根据用户ID获取用户飞机",
+                "operationId": "PlaneController.根据用户ID获取飞机",
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.Plane"
+                        }
+                    },
+                    "500": {
+                        "description": "未知错误"
+                    }
+                }
+            }
+        },
+        "/plane/{planeId}": {
+            "get": {
+                "tags": [
+                    "plane"
+                ],
+                "description": "根据飞机Id 获取指定飞机",
+                "operationId": "PlaneController.根据飞机Id 获取飞机",
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.Plane"
+                        }
+                    },
+                    "500": {
+                        "description": "系统发生错误"
+                    }
+                }
+            }
+        },
+        "/user/create": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "create users",
+                "operationId": "UserController.CreateUser",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for user content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{int} models.User.Id"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/user/delete": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Delete the user",
+                "operationId": "UserController.DeleteUser",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uid",
+                        "description": "The uid you want to c",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for user content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": ":dont have this user"
+                    }
+                }
+            }
+        },
+        "/user/getAll": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "get all Users",
+                "operationId": "UserController.GetAll user",
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.User"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "系统错误"
+                    }
+                }
+            }
+        },
+        "/user/update": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "update the user",
+                "operationId": "UserController.Update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uid",
+                        "description": "The uid you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for user content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": ":dont have this user"
+                    }
+                }
+            }
+        },
+        "/user/{uid}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "get user by uid",
+                "operationId": "UserController.GetUser By user Id",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uid",
+                        "description": "The key for model.UserId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": ":uid is empty"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Log": {
+            "title": "Log",
+            "type": "object",
+            "properties": {
+                "Address": {
+                    "type": "string"
+                },
+                "Drive": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Ip": {
+                    "type": "string"
+                },
+                "Time": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "TimeOut": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "UserId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "UserName": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Message": {
+            "title": "Message",
+            "type": "object",
+            "properties": {
+                "Address": {
+                    "type": "string"
+                },
+                "Context": {
+                    "type": "string"
+                },
+                "Don": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "FromUserId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "ImageUrl": {
+                    "type": "string"
+                },
+                "IsRead": {
+                    "type": "boolean"
+                },
+                "Log": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "PlaneId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "ReadTime": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "SendTime": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "ToUserId": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.Plane": {
+            "title": "Plane",
+            "type": "object",
+            "properties": {
+                "BeginAddress": {
+                    "type": "string"
+                },
+                "BeginTime": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "ImageUrl": {
+                    "type": "string"
+                },
+                "IsBack": {
+                    "type": "boolean"
+                },
+                "PlaneName": {
+                    "type": "string"
+                },
+                "PlayTime": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "ResultAddress": {
+                    "type": "string"
+                },
+                "UserId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "WatchNum": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.User": {
+            "title": "User",
+            "type": "object",
+            "properties": {
+                "Accout": {
+                    "type": "string"
+                },
+                "Address": {
+                    "type": "string"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "ImageUrl": {
+                    "type": "string"
+                },
+                "Password": {
+                    "type": "string"
+                },
+                "Phone": {
+                    "type": "string"
+                },
+                "Salt": {
+                    "type": "string"
+                },
+                "Sex": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Status": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "UserName": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "user",
+            "description": "Plane Users API\n"
+        },
+        {
+            "name": "log",
+            "description": "Operations about logs\n"
+        },
+        {
+            "name": "plane",
+            "description": "Plane API get extend the BaseController\n"
+        },
+        {
+            "name": "message",
+            "description": "Operations about logs\n"
+        }
+    ]
+}

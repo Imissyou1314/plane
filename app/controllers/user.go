@@ -11,6 +11,7 @@ type UserController struct {
 	BaseController
 }
 
+// Operations about User
 func (u *UserController) URLMapping() {
 	u.Mapping("CreateUser", u.CreateUser)
 	u.Mapping("GetAll", u.GetAll)
@@ -45,7 +46,7 @@ func (u *UserController) GetAll() {
 
 // @Title GetUser By user Id
 // @Description get user by uid
-// @Param	uid		path 	string	true		"The key for staticblock"
+// @Param	uid		path 	string	true		"The key for model.UserId"
 // @Success 200 {object} models.User
 // @Failure 403 :uid is empty
 // @router /:uid [get]

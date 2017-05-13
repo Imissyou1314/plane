@@ -11,6 +11,7 @@ type PlaneController struct {
 	BaseController
 }
 
+// Operations about plane
 func (p *PlaneController) URLMapping() {
 	p.Mapping("GetPlaneByID", p.GetPlaneByID)
 	p.Mapping("GetPlaneByUserID", p.GetPlaneByUserID)
@@ -19,7 +20,7 @@ func (p *PlaneController) URLMapping() {
 
 // @Title CreatePlane 创建飞机
 // @Description 添加飞机
-// @param Plane json
+// @param Plane json Plane true
 // @Success 200 {object} models.Plane
 // @Failure 500 系统发生错误
 // @router /create [post]

@@ -7,10 +7,12 @@ import (
 	"plane/app/service"
 )
 
+// Operations about logs
 type MessageController struct {
 	BaseController
 }
 
+// Operations about message
 func (m *MessageController) URLMapping() {
 	m.Mapping("CreateMessage", m.CreateMessage)
 	m.Mapping("UserMessage", m.UserUNReadMessage)
@@ -19,9 +21,9 @@ func (m *MessageController) URLMapping() {
 	m.Mapping("GetMessageByPlaneID", m.GetMessageByPlaneID)
 }
 
-// @Title AddMessage
+// @Title CreateMessage
 // @Description Add the Message
-// @Param	body		body 	models.User	true		"body for user content"
+// @Param	json	body 	models.Message	true		"body for user content"
 // @Success 200 {object} models.User
 // @Failure 403 :dont have this user
 // @router /add [post]
@@ -34,8 +36,8 @@ func (m *MessageController) CreateMessage() {
 }
 
 // @Title ReadMessage
-// @Description Add the Message
-// @Param	Id		body
+// @Description read the Message
+// @Param	messageId	 path int true
 // @Success 200 {object} models.User
 // @Failure 403 :dont have this user
 // @router /read/:messageId [get]
@@ -47,7 +49,7 @@ func (m *MessageController) ReadMessage() {
 
 // @Title UserUNReadMessage
 // @Description Add the Message
-// @Param	Id		body
+// @Param	Id		body int true
 // @Success 200 {object} models.User
 // @Failure 403 :dont have this user
 // @router /getUserMessage [post]
@@ -61,7 +63,7 @@ func (m *MessageController) UserUNReadMessage() {
 
 // @Title GetMessageById
 // @Description get the Message by messageId
-// @Param	Id		body
+// @Param	Id	path int true
 // @Success 200 {object} models.User
 // @Failure 403 :dont have this user
 // @router /:messageId [get]
@@ -77,7 +79,7 @@ func (m *MessageController) GetMessageByID() {
 
 // @Title GetMessageByPlaneId
 // @Description get the Message by messageId
-// @Param	Id		body
+// @Param	Id path int true  "for message planeId"
 // @Success 200 {object} models.User
 // @Failure 403 :dont have this user
 // @router /plane/:planeId [get]

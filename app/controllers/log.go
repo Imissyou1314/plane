@@ -12,6 +12,7 @@ type LogController struct {
 	beego.Controller
 }
 
+// Operations about log
 func (l *LogController) URLMapping() {
 	l.Mapping("GetLog", l.GetLog)
 	l.Mapping("GetAllLogs", l.GetAllLogs)
@@ -19,7 +20,7 @@ func (l *LogController) URLMapping() {
 
 // @Title GetLogs
 // @Description get log By logId
-// @param id string true
+// @param id body string true
 // @Success 200 {Array} []models.Log
 // @Failure 404 Log not found
 // @router /GetLog/:id [get]
@@ -37,7 +38,7 @@ func (l *LogController) GetLog() {
 
 // @Title get All logs
 // @Description get All Logs
-// @Success 200 {array} models.Logs.LogsList
+// @Success 200 {array} models.Log
 // @Failure 500 Logs not fild
 // @router /getAllLogs [get]
 func (l *LogController) GetAllLogs() {
