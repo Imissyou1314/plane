@@ -6,9 +6,14 @@ import (
 	"plane/app/service"
 )
 
-// Plane Users API
+// UserController Plane Users API
 type UserController struct {
 	BaseController
+}
+
+// getModelName 获取模型名字
+func (u *UserController) getModelName() string {
+	return "User"
 }
 
 // Operations about User
@@ -41,7 +46,7 @@ func (u *UserController) CreateUser() {
 // @router /getAll [get]
 func (u *UserController) GetAll() {
 	users, err := service.UserService.GetAllUser()
-	u.SetResult(users, err)
+	u.SetResult(u.getModelName(), users, err)
 }
 
 // @Title GetUser By user Id
@@ -53,7 +58,7 @@ func (u *UserController) GetAll() {
 func (u *UserController) GetUserByID() {
 	uid, _ := u.GetInt64(":uid")
 	user, err := service.UserService.GetUser(uid)
-	u.SetResult(user, err)
+	u.SetResult(u.getModelName(), user, err)
 }
 
 // @Title Update
@@ -67,7 +72,7 @@ func (u *UserController) UpdateUser() {
 	var user models.User
 	json.Unmarshal(u.Ctx.Input.RequestBody, &user)
 	uu, err := service.UserService.UpdateUser(&user, "Id")
-	u.SetResult(uu, err)
+	u.SetResult(u.getModelName(), uu, err)
 }
 
 // @Title DeleteUser
@@ -79,8 +84,16 @@ func (u *UserController) UpdateUser() {
 // @router /delete [put]
 func (u *UserController) DeleteUser() {
 	var user models.User
-	json.Unmarshal(u.Ctx.Input.RequestBody, user)
+	json.Unmarshal(u.Ctx.Input.RequestBody, &user)
 	user.Status = 1
 	uu, err := service.UserService.UpdateUser(&user, "status")
-	u.SetResult(uu, err)
+	u.SetResult(u.getModelName(), uu, err)
+}
+
+func (u *UserController) UpdateUserImage() {
+	// userId := u.GetInt64("userId", 0)
+	// file, h, err := u.GetFile("userImage")
+	// defer file.Close()
+	// u.CheckErr(err)
+	// service.UserService.UpdateUserHeadImage(userId, imageName)
 }

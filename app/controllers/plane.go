@@ -18,6 +18,11 @@ func (p *PlaneController) URLMapping() {
 	p.Mapping("CreatePlane", p.CreatePlane)
 }
 
+// getModelName 获取模型名字
+func (p *PlaneController) getModelName() string {
+	return "plane"
+}
+
 // @Title CreatePlane 创建飞机
 // @Description 添加飞机
 // @param Plane json Plane true
@@ -28,7 +33,7 @@ func (p *PlaneController) CreatePlane() {
 	var plane models.Plane
 	json.Unmarshal(p.Ctx.Input.RequestBody, &plane)
 	result, err := service.PlaneService.AddPlane(&plane)
-	p.SetResult(result, err)
+	p.SetResult(p.getModelName(), result, err)
 }
 
 // @Title 根据飞机Id 获取飞机
@@ -40,7 +45,7 @@ func (p *PlaneController) CreatePlane() {
 func (p *PlaneController) GetPlaneByID() {
 	planeID, _ := p.GetInt64(":planeId")
 	plane, err := service.PlaneService.FindOneByID(planeID)
-	p.SetResult(plane, err)
+	p.SetResult(p.getModelName(), plane, err)
 }
 
 // @Title 根据用户ID获取飞机
@@ -52,7 +57,7 @@ func (p *PlaneController) GetPlaneByID() {
 func (p *PlaneController) GetPlaneByUserID() {
 	userID, _ := p.GetInt64(":userId")
 	plane, err := service.PlaneService.FindUserPlane(userID)
-	p.SetResult(plane, err)
+	p.SetResult(p.getModelName(), plane, err)
 }
 
 // @Title 获取所有的飞机
@@ -63,5 +68,5 @@ func (p *PlaneController) GetPlaneByUserID() {
 // @router /getAll [get]
 func (p *PlaneController) GetAllPlane() {
 	planes, err := service.PlaneService.GetAll()
-	p.SetResult(planes, err)
+	p.SetResult(p.getModelName(), planes, err)
 }

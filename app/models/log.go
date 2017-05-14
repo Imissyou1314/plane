@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-/** 日志  */
+// Log 日志模块
 type Log struct {
 	Id       int64     // 日志ID
 	Time     time.Time `orm:"auto_now_add;type(datetime)"` // 记录时间

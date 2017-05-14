@@ -4,26 +4,55 @@ import (
 	"time"
 )
 
-/**
- * 返回类型
- */
+// Result 返回模块
 type Result struct {
 	ResultInfo   string
 	ResultCode   int
 	ResultStatus bool
-	ResultData   interface{}
+	ResultData   map[string]interface{}
 	ResultError  interface{}
 	ResultDate   time.Time
 }
 
-func GetResultModel() *Result {
-	result := &Result{}
+// GetResultModel 获取返回模型
+func GetResultModel() (result *Result) {
+	result = &Result{}
 	result.ResultDate = time.Now().UTC()
-	return result
+	return
 }
 
-func SetResultModel(data interface{}, err error) *Result {
-	result := &Result{}
+// SetResultModel 设置返回值
+func SetResultModel(key, info string, data interface{}, err error) (result *Result) {
+	result = &Result{}
+	result.ResultDate = time.Now().UTC()
+	if err != nil {
+		result.ResultError = err
+		result.ResultCode = 500
+		result.ResultStatus = false
+	} else {
+		result.ResultData = SetMapData(key, data)
+		result.ResultStatus = true
+		result.ResultCode = 200
+	}
+	return
+}
+
+// SetMapData 封装Map对象作为返回值
+func SetMapData(key string, data interface{}) (mapData map[string]interface{}) {
+	mapData = make(map[string]interface{})
+	mapData[key] = data
+	return
+}
+
+// GetMapData 获取Map进行填充数据
+func GetMapData() (result map[string]interface{}) {
+	result = make(map[string]interface{})
+	return
+}
+
+// SetResultWithMapData 多值返回
+func SetResultWithMapData(data map[string]interface{}, err error) (result *Result) {
+	result = &Result{}
 	result.ResultDate = time.Now().UTC()
 	if err != nil {
 		result.ResultError = err
@@ -34,10 +63,11 @@ func SetResultModel(data interface{}, err error) *Result {
 		result.ResultStatus = true
 		result.ResultCode = 200
 	}
-	return result
+	return
 }
 
-func SetWithErr(err error) *Result {
-	result := SetResultModel(nil, err)
-	return result
+// SetWithErr 错误返回
+func SetWithErr(err error) (result *Result) {
+	result = SetResultModel("", "发成错误！", nil, err)
+	return
 }

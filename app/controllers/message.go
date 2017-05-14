@@ -21,18 +21,23 @@ func (m *MessageController) URLMapping() {
 	m.Mapping("GetMessageByPlaneID", m.GetMessageByPlaneID)
 }
 
+// getName 设置获取模型名字
+func (m *MessageController) getModelName() string {
+	return "message"
+}
+
 // @Title CreateMessage
 // @Description Add the Message
 // @Param	json	body 	models.Message	true		"body for user content"
 // @Success 200 {object} models.User
 // @Failure 403 :dont have this user
 // @router /add [post]
+
 func (m *MessageController) CreateMessage() {
 	var message models.Message
 	json.Unmarshal(m.Ctx.Input.RequestBody, &message)
-	result, _ := service.MessageService.AddMessage(&message)
-	m.Data["json"] = result
-	m.ServeJSON()
+	result, err := service.MessageService.AddMessage(&message)
+	m.SetResult(m.getModelName(), result, err)
 }
 
 // @Title ReadMessage
@@ -44,7 +49,7 @@ func (m *MessageController) CreateMessage() {
 func (m *MessageController) ReadMessage() {
 	messageID, _ := m.GetInt64("messageId", 0)
 	err := service.MessageService.ReadMessage(messageID)
-	m.SetResult("read the message Success", err)
+	m.SetResultWithInfo("", "read the message Success", nil, err)
 }
 
 // @Title UserUNReadMessage
@@ -57,7 +62,7 @@ func (m *MessageController) UserUNReadMessage() {
 	userID, err := m.GetInt64("userId", 0)
 	if m.CheckErr(err) {
 		messages, err := service.MessageService.GetUserUNReadMessage(userID)
-		m.SetResult(messages, err)
+		m.SetResult(m.getModelName(), messages, err)
 	}
 }
 
@@ -73,7 +78,7 @@ func (m *MessageController) GetMessageByID() {
 	if m.CheckErr(mErr) {
 		message, err := service.MessageService.FindOneByID(messageID)
 		libs.Log(message)
-		m.SetResult(message, err)
+		m.SetResult(m.getModelName(), message, err)
 	}
 }
 
@@ -87,6 +92,6 @@ func (m *MessageController) GetMessageByPlaneID() {
 	planeID, err := m.GetInt64(":planeId", 0)
 	if m.CheckErr(err) {
 		messages, err := service.MessageService.FindMessageByPlaneID(planeID)
-		m.SetResult(messages, err)
+		m.SetResult(m.getModelName(), messages, err)
 	}
 }
