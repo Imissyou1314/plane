@@ -19,6 +19,7 @@ func (m *MessageController) URLMapping() {
 	m.Mapping("ReadMessage", m.ReadMessage)
 	m.Mapping("GetMessageByID", m.GetMessageByID)
 	m.Mapping("GetMessageByPlaneID", m.GetMessageByPlaneID)
+	m.Mapping("CreateImageMessage", m.CreateImageMessage)
 }
 
 // getName 设置获取模型名字
@@ -31,8 +32,7 @@ func (m *MessageController) getModelName() string {
 // @Param	json	body 	models.Message	true		"body for user content"
 // @Success 200 {object} models.User
 // @Failure 403 :dont have this user
-// @router /add [post]
-
+// @router /createMessage [post]
 func (m *MessageController) CreateMessage() {
 	var message models.Message
 	json.Unmarshal(m.Ctx.Input.RequestBody, &message)
@@ -93,5 +93,26 @@ func (m *MessageController) GetMessageByPlaneID() {
 	if m.CheckErr(err) {
 		messages, err := service.MessageService.FindMessageByPlaneID(planeID)
 		m.SetResult(m.getModelName(), messages, err)
+	}
+}
+
+// @Title CreateImageMessage 添加带图片消息
+// @Description get the Message by messageId
+// @Param	Id path int true  "for message planeId"
+// @Success 200 {object} models.User
+// @Failure 403 :dont have this user
+// @router /addImageMessage [post]
+func (m *MessageController) CreateImageMessage() {
+	var message models.Message
+	json.Unmarshal(m.Ctx.Input.RequestBody, &message)
+	file, h, err := m.GetFile("image")
+	defer file.Close()
+	if m.CheckErr(err) {
+		fileName, fileErr := m.SaveFileToLoaction("image", h.Filename)
+		if m.CheckErr(fileErr) {
+			message.ImageUrl = fileName
+			result, err := service.MessageService.AddMessage(&message)
+			m.SetResult(m.getModelName(), result, err)
+		}
 	}
 }

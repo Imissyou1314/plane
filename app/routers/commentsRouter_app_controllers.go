@@ -22,6 +22,13 @@ func init() {
 
 	beego.GlobalControllerRouter["plane/app/controllers:MessageController"] = append(beego.GlobalControllerRouter["plane/app/controllers:MessageController"],
 		beego.ControllerComments{
+			Method: "CreateMessage",
+			Router: `/createMessage`,
+			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["plane/app/controllers:MessageController"] = append(beego.GlobalControllerRouter["plane/app/controllers:MessageController"],
+		beego.ControllerComments{
 			Method: "ReadMessage",
 			Router: `/read/:messageId`,
 			AllowHTTPMethods: []string{"get"},
@@ -46,6 +53,13 @@ func init() {
 			Method: "GetMessageByPlaneID",
 			Router: `/plane/:planeId`,
 			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["plane/app/controllers:MessageController"] = append(beego.GlobalControllerRouter["plane/app/controllers:MessageController"],
+		beego.ControllerComments{
+			Method: "CreateImageMessage",
+			Router: `/addImageMessage`,
+			AllowHTTPMethods: []string{"post"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["plane/app/controllers:PlaneController"] = append(beego.GlobalControllerRouter["plane/app/controllers:PlaneController"],
@@ -108,7 +122,14 @@ func init() {
 		beego.ControllerComments{
 			Method: "DeleteUser",
 			Router: `/delete`,
-			AllowHTTPMethods: []string{"put"},
+			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["plane/app/controllers:UserController"] = append(beego.GlobalControllerRouter["plane/app/controllers:UserController"],
+		beego.ControllerComments{
+			Method: "UpdateUserImage",
+			Router: `/updateImage`,
+			AllowHTTPMethods: []string{"post"},
 			Params: nil})
 
 }

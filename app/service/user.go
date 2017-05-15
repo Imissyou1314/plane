@@ -123,3 +123,13 @@ func (u *userService) Logout(userID int64) (*models.User, error) {
 	}
 	return u.UpdateUser(user)
 }
+
+func (u *userService) UpdateUserHeadImage(userId int64, imageUrl string) (*models.User, error) {
+	user, err := u.GetUser(userId)
+	if err != nil {
+		return nil, err
+	}
+	user.ImageUrl = imageUrl
+	newUser, err := u.UpdateUser(user, "image_url")
+	return newUser, err
+}

@@ -22,7 +22,8 @@ func (u *UserController) URLMapping() {
 	u.Mapping("GetAll", u.GetAll)
 	u.Mapping("UpdateUser", u.UpdateUser)
 	u.Mapping("GetUserByID", u.GetUserByID)
-	u.Mapping("delete", u.DeleteUser)
+	u.Mapping("DeleteUser", u.DeleteUser)
+	u.Mapping("UpdateUserImage", u.UpdateUserImage)
 }
 
 // @Title CreateUser
@@ -34,9 +35,8 @@ func (u *UserController) URLMapping() {
 func (u *UserController) CreateUser() {
 	var user models.User
 	json.Unmarshal(u.Ctx.Input.RequestBody, &user)
-	result, _ := service.UserService.AddUser(&user)
-	u.Data["json"] = result
-	u.ServeJSON()
+	result, err := service.UserService.AddUser(&user)
+	u.SetResult(u.getModelName(), result, err)
 }
 
 // @Title GetAll user
@@ -81,7 +81,7 @@ func (u *UserController) UpdateUser() {
 // @Param	body		body 	models.User	true		"body for user content"
 // @Success 200 {object} models.User
 // @Failure 403 :dont have this user
-// @router /delete [put]
+// @router /delete [post]
 func (u *UserController) DeleteUser() {
 	var user models.User
 	json.Unmarshal(u.Ctx.Input.RequestBody, &user)
@@ -90,10 +90,22 @@ func (u *UserController) DeleteUser() {
 	u.SetResult(u.getModelName(), uu, err)
 }
 
+// @Title UpdateUserImage 更新用户头像
+// @Description Delete the user
+// @Param	uid		path 	string	true		"The uid you want to c"
+// @Param	body		body 	file	true		"body for Image file content"
+// @Success 200 {object} models.User
+// @Failure 403 :dont have this user
+// @router /updateImage [post]
 func (u *UserController) UpdateUserImage() {
-	// userId := u.GetInt64("userId", 0)
-	// file, h, err := u.GetFile("userImage")
-	// defer file.Close()
-	// u.CheckErr(err)
-	// service.UserService.UpdateUserHeadImage(userId, imageName)
+	userID, _ := u.GetInt64("uid", 0)
+	file, h, err := u.GetFile("userImage")
+	defer file.Close()
+	if u.CheckErr(err) {
+		fileName, fileErr := u.SaveFileToLoaction("userImage", h.Filename+"")
+		if u.CheckErr(fileErr) {
+			user, upErr := service.UserService.UpdateUserHeadImage(userID, fileName)
+			u.SetResult(u.getModelName(), user, upErr)
+		}
+	}
 }

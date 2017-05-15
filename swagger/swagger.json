@@ -54,36 +54,6 @@
                 }
             }
         },
-        "/message/add": {
-            "post": {
-                "tags": [
-                    "message"
-                ],
-                "description": "Add the Message",
-                "operationId": "MessageController.CreateMessage",
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "json",
-                        "description": "body for user content",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.Message"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/models.User"
-                        }
-                    },
-                    "403": {
-                        "description": ":dont have this user"
-                    }
-                }
-            }
-        },
         "/message/getUserMessage": {
             "post": {
                 "tags": [
@@ -360,6 +330,41 @@
                 }
             }
         },
+        "/user/image": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Delete the user",
+                "operationId": "UserController.UpdateUserImage 更新用户头像",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uid",
+                        "description": "The uid you want to c",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Image file content",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": ":dont have this user"
+                    }
+                }
+            }
+        },
         "/user/update": {
             "post": {
                 "tags": [
@@ -461,56 +466,6 @@
                 }
             }
         },
-        "models.Message": {
-            "title": "Message",
-            "type": "object",
-            "properties": {
-                "Address": {
-                    "type": "string"
-                },
-                "Context": {
-                    "type": "string"
-                },
-                "Don": {
-                    "type": "number",
-                    "format": "double"
-                },
-                "FromUserId": {
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "Id": {
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "ImageUrl": {
-                    "type": "string"
-                },
-                "IsRead": {
-                    "type": "boolean"
-                },
-                "Log": {
-                    "type": "number",
-                    "format": "double"
-                },
-                "PlaneId": {
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "ReadTime": {
-                    "type": "string",
-                    "format": "string"
-                },
-                "SendTime": {
-                    "type": "string",
-                    "format": "string"
-                },
-                "ToUserId": {
-                    "type": "integer",
-                    "format": "int64"
-                }
-            }
-        },
         "models.Plane": {
             "title": "Plane",
             "type": "object",
@@ -601,7 +556,7 @@
     "tags": [
         {
             "name": "user",
-            "description": "Plane Users API\n"
+            "description": "UserController Plane Users API\n"
         },
         {
             "name": "log",

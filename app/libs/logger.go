@@ -18,10 +18,12 @@ func init() {
 	log.SetLevel(log.WarnLevel)
 }
 
+// Log Info日志
 func Log(info interface{}) {
 	log.Info(info)
 }
 
+// FLog Info日志
 func FLog(info interface{}) {
 	log.Info(info)
 }

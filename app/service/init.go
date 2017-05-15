@@ -23,9 +23,7 @@ var (
 	MessageService  *messageService  //消息服务
 )
 
-/**
- * ServiceIF Base interface
- */
+// ServiceIF 接口
 type ServiceIF interface {
 	FindOneById(ID int64)
 	FindAll()
@@ -93,7 +91,7 @@ func initService() {
 	MessageService = &messageService{}
 }
 
-// 获取表名
+// tableName 获取表名
 func tableName(name string) string {
 	return tablePrefix + name
 }
@@ -103,7 +101,7 @@ func debug(v ...interface{}) {
 	beego.Debug(v...)
 }
 
-/** DBVersion  */
+// DBVersion  数据库版本
 func DBVersion() string {
 	var lists []orm.ParamsList
 	o.Raw("select version()").ValuesList(&lists)
@@ -118,15 +116,15 @@ func concatenateError(err error, stderr string) error {
 	return fmt.Errorf("%v: %s", err, stderr)
 }
 
-// 检查错误类型
-func checkErr(err error) bool {
+// CheckErr 检查错误类型
+func CheckErr(err error) bool {
 	if nil == err {
 		return true
 	}
 	return false
 }
 
-// 生成异常
-func newError(errMsg string) error {
+// NewError 生成异常
+func NewError(errMsg string) error {
 	return fmt.Errorf("Error Msg: %s", errMsg)
 }

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"plane/app/libs"
 	"plane/app/models"
 	"time"
 
@@ -14,6 +15,7 @@ type BaseController struct {
 }
 
 var log = logrus.New()
+var savePath = "static/upload/"
 
 func init() {
 	log.Formatter = new(logrus.JSONFormatter)
@@ -48,8 +50,8 @@ func (base *BaseController) SetResultWithInfo(key, info string, data interface{}
 // SetResultWithMuilt 设置多值返回
 func (base *BaseController) SetResultWithMuilt(key []string, data []interface{}, err error) {
 	mapData := models.GetMapData()
-	for i, _ := range key {
-		mapData[key[i]] = data
+	for i := range key {
+		mapData[key[i]] = data[i]
 	}
 	base.bindData(models.SetResultWithMapData(mapData, err))
 }
@@ -58,4 +60,11 @@ func (base *BaseController) SetResultWithMuilt(key []string, data []interface{},
 func (base *BaseController) bindData(resultData *models.Result) {
 	base.Data["json"] = resultData
 	base.ServeJSON()
+}
+
+// SaveFileToLoaction 保存文件到本地
+func (base *BaseController) SaveFileToLoaction(formfile, toFile string) (fileNmae string, err error) {
+	fileNmae = libs.Md5([]byte(toFile)) + ".png"
+	err = base.SaveToFile(formfile, savePath+fileNmae)
+	return
 }
