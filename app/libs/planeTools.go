@@ -4,16 +4,17 @@ import (
 	"math"
 )
 
-var EarthRadius float64 = 6378.137
+const EarthRadius float64 = 6378137 // 6378137
 
-func GetDistance(startLat, startLng, endLat, endLng float64) {
-	radLat1 := rad(startLat)
-	radLat2 := rad(endLat)
-	redStart := radLat1 - radLat2
-	radEnd := rad(startLng) - rad(endLng)
-	s := 2 * math.Asin(math.Sqrt(math.Pow(math.Sin(redStart/2), 2)+
-		math.Cos(radLat1)*math.Cos(radLat2)*math.Pow(math.Sin(radEnd/2), 2)))
-	s = s * EarthRadius
+// EarthDistance 返回值的单位为米
+func EarthDistance(lat1, lng1, lat2, lng2 float64) float64 {
+	lat1 = rad(lat1)
+	lng1 = rad(lng1)
+	lat2 = rad(lat1)
+	lng2 = rad(lng2)
+	theta := lng2 - lng1
+	dist := math.Acos(math.Sin(lat1)*math.Sin(lat2) + math.Cos(lat1)*math.Cos(lat2)*math.Cos(theta))
+	return dist * EarthRadius
 }
 
 // rad 装换器
