@@ -16,10 +16,11 @@ var (
 	o orm.Ormer //数据库Orm
 	// log 						log.newLog()     // 日志管理器
 	tablePrefix     string           //表前缀
+	VideoService    *videoService    // 视屏服务
 	LogService      *logService      //日志服务
 	UserService     *userService     //用户服务
 	PlaneService    *planeService    //飞机服务
-	PlaneLogService *planeLogService // 飞机日记服务
+	PlaneLogService *planeLogService //飞机日记服务
 	MessageService  *messageService  //消息服务
 )
 
@@ -65,6 +66,7 @@ func init() {
 		new(models.Message),
 		new(models.Plane),
 		new(models.PlaneLog),
+		new(models.Video),
 	)
 
 	//自动创建表（建后关闭)
@@ -84,6 +86,7 @@ func init() {
 
 // 初始化服务
 func initService() {
+	VideoService = &videoService{}
 	UserService = &userService{}
 	LogService = &logService{}
 	PlaneLogService = &planeLogService{}

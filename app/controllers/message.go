@@ -12,7 +12,7 @@ type MessageController struct {
 	BaseController
 }
 
-// Operations about message
+// URLMapping about message
 func (m *MessageController) URLMapping() {
 	m.Mapping("CreateMessage", m.CreateMessage)
 	m.Mapping("UserMessage", m.UserUNReadMessage)
@@ -108,7 +108,7 @@ func (m *MessageController) CreateImageMessage() {
 	file, h, err := m.GetFile("image")
 	defer file.Close()
 	if m.CheckErr(err) {
-		fileName, fileErr := m.SaveFileToLoaction("image", h.Filename)
+		fileName, fileErr := m.SaveFileToLoaction("image", h.Filename+"", ".png")
 		if m.CheckErr(fileErr) {
 			message.ImageUrl = fileName
 			result, err := service.MessageService.AddMessage(&message)

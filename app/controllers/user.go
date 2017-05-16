@@ -102,7 +102,7 @@ func (u *UserController) UpdateUserImage() {
 	file, h, err := u.GetFile("userImage")
 	defer file.Close()
 	if u.CheckErr(err) {
-		fileName, fileErr := u.SaveFileToLoaction("userImage", h.Filename+"")
+		fileName, fileErr := u.SaveFileToLoaction("userImage", h.Filename, ".png")
 		if u.CheckErr(fileErr) {
 			user, upErr := service.UserService.UpdateUserHeadImage(userID, fileName)
 			u.SetResult(u.getModelName(), user, upErr)

@@ -16,6 +16,7 @@ type BaseController struct {
 
 var log = logrus.New()
 var savePath = "static/upload/"
+var videoPath = "static/video"
 
 func init() {
 	log.Formatter = new(logrus.JSONFormatter)
@@ -63,8 +64,8 @@ func (base *BaseController) bindData(resultData *models.Result) {
 }
 
 // SaveFileToLoaction 保存文件到本地
-func (base *BaseController) SaveFileToLoaction(formfile, toFile string) (fileNmae string, err error) {
-	fileNmae = libs.Md5([]byte(toFile)) + ".png"
+func (base *BaseController) SaveFileToLoaction(formfile, toFile, fileTypeName string) (fileNmae string, err error) {
+	fileNmae = libs.Md5([]byte(toFile)) + fileTypeName
 	err = base.SaveToFile(formfile, savePath+fileNmae)
 	return
 }

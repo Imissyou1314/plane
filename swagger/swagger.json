@@ -54,6 +54,65 @@
                 }
             }
         },
+        "/message/addImageMessage": {
+            "post": {
+                "tags": [
+                    "message"
+                ],
+                "description": "get the Message by messageId",
+                "operationId": "MessageController.CreateImageMessage 添加带图片消息",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "Id",
+                        "description": "for message planeId",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": ":dont have this user"
+                    }
+                }
+            }
+        },
+        "/message/createMessage": {
+            "post": {
+                "tags": [
+                    "message"
+                ],
+                "description": "Add the Message",
+                "operationId": "MessageController.CreateMessage",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "json",
+                        "description": "body for user content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Message"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": ":dont have this user"
+                    }
+                }
+            }
+        },
         "/message/getUserMessage": {
             "post": {
                 "tags": [
@@ -272,7 +331,7 @@
             }
         },
         "/user/delete": {
-            "put": {
+            "post": {
                 "tags": [
                     "user"
                 ],
@@ -330,41 +389,6 @@
                 }
             }
         },
-        "/user/image": {
-            "post": {
-                "tags": [
-                    "user"
-                ],
-                "description": "Delete the user",
-                "operationId": "UserController.UpdateUserImage 更新用户头像",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "uid",
-                        "description": "The uid you want to c",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "body for Image file content",
-                        "required": true,
-                        "type": "file"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/models.User"
-                        }
-                    },
-                    "403": {
-                        "description": ":dont have this user"
-                    }
-                }
-            }
-        },
         "/user/update": {
             "post": {
                 "tags": [
@@ -388,6 +412,41 @@
                         "schema": {
                             "$ref": "#/definitions/models.User"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": ":dont have this user"
+                    }
+                }
+            }
+        },
+        "/user/updateImage": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Delete the user",
+                "operationId": "UserController.UpdateUserImage 更新用户头像",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uid",
+                        "description": "The uid you want to c",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Image file content",
+                        "required": true,
+                        "type": "file"
                     }
                 ],
                 "responses": {
@@ -429,6 +488,35 @@
                     }
                 }
             }
+        },
+        "/video/addVideo": {
+            "post": {
+                "tags": [
+                    "video"
+                ],
+                "description": "get the Message by messageId",
+                "operationId": "VideoController.UploadVideo 添加带图片消息",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "Id",
+                        "description": "for message planeId",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": ":dont have this user"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -466,6 +554,56 @@
                 }
             }
         },
+        "models.Message": {
+            "title": "Message",
+            "type": "object",
+            "properties": {
+                "Address": {
+                    "type": "string"
+                },
+                "Context": {
+                    "type": "string"
+                },
+                "Don": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "FromUserId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "ImageUrl": {
+                    "type": "string"
+                },
+                "IsRead": {
+                    "type": "boolean"
+                },
+                "Log": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "PlaneId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "ReadTime": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "SendTime": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "ToUserId": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
         "models.Plane": {
             "title": "Plane",
             "type": "object",
@@ -476,6 +614,10 @@
                 "BeginTime": {
                     "type": "string",
                     "format": "string"
+                },
+                "Distance": {
+                    "type": "number",
+                    "format": "double"
                 },
                 "Email": {
                     "type": "string"
@@ -492,6 +634,10 @@
                 },
                 "PlaneName": {
                     "type": "string"
+                },
+                "PlaneSpeed": {
+                    "type": "number",
+                    "format": "double"
                 },
                 "PlayTime": {
                     "type": "string",
@@ -569,6 +715,10 @@
         {
             "name": "message",
             "description": "Operations about logs\n"
+        },
+        {
+            "name": "video",
+            "description": "VideoController 视屏控制器\n"
         }
     ]
 }

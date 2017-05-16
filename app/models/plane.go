@@ -7,18 +7,18 @@ import (
 /** Plane飞机实体*/
 type Plane struct {
 	Id            int64     // PlaneID 飞机ID
-	PlaneName     string    `orm:"size(20)"` // PlaneName 飞机名
-	ImageUrl      string    `orm:"size(20)"` // 飞机图标
-	UserId        int64     // userid   用户ID
+	PlaneName     string    `orm:"size(200)"`                   // PlaneName 飞机名
+	ImageUrl      string    `orm:"size(200)"`                   // 飞机图标
+	UserId        int64     `orm:"size(100)"`                   // userid   用户ID
 	PlayTime      time.Time `orm:"type(datatime)"`              //  飞行时间
 	BeginTime     time.Time `orm:"auto_now_add;type(datetime)"` //  开始时间
-	BeginAddress  string    `orm:"size(20)"`                    //  开始地点
-	ResultAddress string    `orm:"size(20)"`                    //  结束地点
-	Distance      float64   `orm:"size(50)"`                    //  两点间的距离
-	PlaneSpeed    float64   `orm:"size(50)"`                    //  PlaneSpeed 飞机的速度
-	Email         string    `orm:"size(30)"`                    //  用户定义消息结束接收邮箱
-	WatchNum      int       // 被拦截的数次
-	IsBack        bool      // 是否已经被回收
+	BeginAddress  string    `orm:"size(200)"`                   //  开始地点
+	ResultAddress string    `orm:"size(200)"`                   //  结束地点
+	Distance      float64   `orm:"size(500)"`                   //  两点间的距离
+	PlaneSpeed    float64   `orm:"size(500)"`                   //  PlaneSpeed 飞机的速度
+	Email         string    `orm:"size(130)"`                   //  用户定义消息结束接收邮箱
+	WatchNum      int       `orm:"size(20)"`                    // 被拦截的数次
+	IsBack        bool      `orm:"size(2)"`                     // 是否已经被回收
 }
 
 type PlaneLog struct {

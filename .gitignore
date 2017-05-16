@@ -57,3 +57,5 @@ plane.exe
 swagger.zip
 lastupdate.tmp
 plane
+*.memprof
+*.pprof
