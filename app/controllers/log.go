@@ -7,7 +7,7 @@ import (
 	"github.com/astaxie/beego/logs"
 )
 
-// Operations about logs
+// LogController 日志模块
 type LogController struct {
 	beego.Controller
 }

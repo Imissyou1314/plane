@@ -1,9 +1,9 @@
 swagger: "2.0"
 info:
-  title: Plane API
-  description: Plane Service API
+  title: beego Test API
+  description: beego has a very cool tools to autogenerate documents for your API
   version: 1.0.0
-  termsOfService: http://127.0.0.1/miss/
+  termsOfService: http://beego.me/
   contact:
     email: 1255418233@qq.com
   license:
@@ -269,6 +269,48 @@ paths:
               $ref: '#/definitions/models.User'
         "500":
           description: 系统错误
+  /user/logOut:
+    post:
+      tags:
+      - user
+      description: Log n the user
+      operationId: UserController.LogOut 用户退出登录
+      parameters:
+      - in: body
+        name: userId
+        description: 用户ID
+        required: true
+        type: integer
+        format: int64
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.User'
+        "403":
+          description: :dont have this user
+  /user/login:
+    post:
+      tags:
+      - user
+      description: Log n the user
+      operationId: UserController.Login 用户登录
+      parameters:
+      - in: path
+        name: account
+        description: 账号
+        required: true
+        type: string
+      - in: body
+        name: password
+        description: 密码
+        required: true
+        type: file
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.User'
+        "403":
+          description: :dont have this user
   /user/update:
     post:
       tags:
@@ -310,25 +352,6 @@ paths:
         description: body for Image file content
         required: true
         type: file
-      responses:
-        "200":
-          schema:
-            $ref: '#/definitions/models.User'
-        "403":
-          description: :dont have this user
-  /video/addVideo:
-    post:
-      tags:
-      - video
-      description: get the Message by messageId
-      operationId: VideoController.UploadVideo 添加带图片消息
-      parameters:
-      - in: path
-        name: Id
-        description: for message planeId
-        required: true
-        type: integer
-        format: int64
       responses:
         "200":
           schema:
@@ -465,16 +488,13 @@ definitions:
 tags:
 - name: user
   description: |
-    UserController Plane Users API
+    UserController 用户模块
 - name: log
   description: |
-    Operations about logs
+    LogController 日志模块
 - name: plane
   description: |
-    Plane API get extend the BaseController
+    PlaneController 纸飞机模块
 - name: message
   description: |
-    Operations about logs
-- name: video
-  description: |
-    VideoController 视屏控制器
+    Operations 消息模块

@@ -6,14 +6,14 @@ import (
 	"plane/app/service"
 )
 
-// UserController Plane Users API
+// UserController 用户模块
 type UserController struct {
 	BaseController
 }
 
 // getModelName 获取模型名字
 func (u *UserController) getModelName() string {
-	return "User"
+	return "user"
 }
 
 // Operations about User
@@ -24,6 +24,8 @@ func (u *UserController) URLMapping() {
 	u.Mapping("GetUserByID", u.GetUserByID)
 	u.Mapping("DeleteUser", u.DeleteUser)
 	u.Mapping("UpdateUserImage", u.UpdateUserImage)
+	u.Mapping("Login", u.Login)
+	u.Mapping("LogOut", u.LogOut)
 }
 
 // @Title CreateUser
@@ -98,14 +100,45 @@ func (u *UserController) DeleteUser() {
 // @Failure 403 :dont have this user
 // @router /updateImage [post]
 func (u *UserController) UpdateUserImage() {
-	userID, _ := u.GetInt64("uid", 0)
+	userID, _ := u.GetInt64("uid")
 	file, h, err := u.GetFile("userImage")
+
 	defer file.Close()
+
 	if u.CheckErr(err) {
 		fileName, fileErr := u.SaveFileToLoaction("userImage", h.Filename, ".png")
 		if u.CheckErr(fileErr) {
 			user, upErr := service.UserService.UpdateUserHeadImage(userID, fileName)
 			u.SetResult(u.getModelName(), user, upErr)
 		}
+	}
+}
+
+// @Title Login 用户登录
+// @Description Log n the user
+// @Param	account		path 	string	true		"账号"
+// @Param	password	body 	file	true		  "密码"
+// @Success 200 {object} models.User
+// @Failure 403 :dont have this user
+// @router /login [post]
+func (u *UserController) Login() {
+	accout := u.GetString("accout")
+	password := u.GetString("password")
+
+	user, err := service.UserService.Login(accout, password)
+	u.SetResult(u.getModelName(), user, err)
+}
+
+// @Title LogOut 用户退出登录
+// @Description Log n the user
+// @Param	userId	body 	int	true		  "用户ID"
+// @Success 200 {object} models.User
+// @Failure 403 :dont have this user
+// @router /logOut [post]
+func (u *UserController) LogOut() {
+	userId, err := u.GetInt64("userId")
+	if u.CheckErr(err) {
+		user, err := service.UserService.Logout(userId)
+		u.SetResult(u.getModelName(), user, err)
 	}
 }

@@ -24,3 +24,10 @@ func (v *videoService) FindOneByID(videoID int64) (*models.Video, error) {
 	err := o.Read(video)
 	return video, err
 }
+
+// GetAllVideo 获取使用的视频
+func (v *videoService) GetAllVideo() ([]*models.Video, error) {
+	var videos []*models.Video
+	_, err := o.QueryTable("t_video").All(&videos)
+	return videos, err
+}

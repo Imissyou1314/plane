@@ -7,7 +7,7 @@ import (
 	"plane/app/service"
 )
 
-// Operations about logs
+// Operations 消息模块
 type MessageController struct {
 	BaseController
 }

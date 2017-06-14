@@ -44,12 +44,14 @@ func (base *BaseController) SetResult(key string, data interface{}, err error) {
 }
 
 // SetResultWithInfo 设置带info的返回数据
-func (base *BaseController) SetResultWithInfo(key, info string, data interface{}, err error) {
+func (base *BaseController) SetResultWithInfo(key, info string, data interface{},
+	err error) {
 	base.bindData(models.SetResultModel(key, info, data, err))
 }
 
 // SetResultWithMuilt 设置多值返回
-func (base *BaseController) SetResultWithMuilt(key []string, data []interface{}, err error) {
+func (base *BaseController) SetResultWithMuilt(key []string, data []interface{},
+	err error) {
 	mapData := models.GetMapData()
 	for i := range key {
 		mapData[key[i]] = data[i]
@@ -64,7 +66,8 @@ func (base *BaseController) bindData(resultData *models.Result) {
 }
 
 // SaveFileToLoaction 保存文件到本地
-func (base *BaseController) SaveFileToLoaction(formfile, toFile, fileTypeName string) (fileNmae string, err error) {
+func (base *BaseController) SaveFileToLoaction(formfile, toFile,
+	fileTypeName string) (fileNmae string, err error) {
 	fileNmae = libs.Md5([]byte(toFile)) + fileTypeName
 	err = base.SaveToFile(formfile, savePath+fileNmae)
 	return

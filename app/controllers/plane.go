@@ -6,12 +6,12 @@ import (
 	"plane/app/service"
 )
 
-// Plane API get extend the BaseController
+// PlaneController 纸飞机模块
 type PlaneController struct {
 	BaseController
 }
 
-// Operations about plane
+// Operations about plane 纸飞机的Api接口
 func (p *PlaneController) URLMapping() {
 	p.Mapping("GetPlaneByID", p.GetPlaneByID)
 	p.Mapping("GetPlaneByUserID", p.GetPlaneByUserID)
